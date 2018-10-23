@@ -44,6 +44,7 @@ public class CameraGalleryActivity extends AppCompatActivity implements View.OnC
         //imageView.setImageDrawable(R.drawable.download);
     }
 
+
     @Override
     public void onClick(View view) {
         if(view == btTakePhot){
