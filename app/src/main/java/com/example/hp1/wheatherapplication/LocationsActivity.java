@@ -1,5 +1,6 @@
 package com.example.hp1.wheatherapplication;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,7 +15,7 @@ public class LocationsActivity extends AppCompatActivity implements AdapterView.
     private ArrayList<String> locations;
     private ArrayAdapter arrayAdapter;
     private ListView lvLocations;
-    private String from="", to="";
+    private String from="", to="", source="to";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,18 +33,21 @@ public class LocationsActivity extends AppCompatActivity implements AdapterView.
 
         from = getIntent().getStringExtra("from");
         to = getIntent().getStringExtra("to");
-    }
-    @Override
-    public void onBackPressed() {
-        getIntent().putExtra("from", from);
-        getIntent().putExtra("to", to);
-        this.setResult(RESULT_OK, getIntent());
-        super.onBackPressed();
+        source = getIntent().getStringExtra("source");
     }
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        from=locations.get(i);
-        onBackPressed();
+        if(source.equals("to"))
+            to=locations.get(i);
+        else
+            from=locations.get(i);
+
+        Intent intent = new Intent(this, SearchActivity.class);
+        intent.putExtra("from", from);
+        intent.putExtra("to", to);
+        startActivity(intent);
+//        getIntent().putExtra("to", to);
+
     }
 }

@@ -15,11 +15,11 @@ import android.widget.SearchView;
 
 import java.util.ArrayList;
 
-public class SearchActivity extends AppCompatActivity implements View.OnFocusChangeListener {
+public class SearchActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ListView searchList;
     private ArrayAdapter<String> arrayAdapter;
-    private String to="haneen", from;
+    private String to="", from="";
     private EditText etFrom, etTo;
 
     @Override
@@ -38,18 +38,20 @@ public class SearchActivity extends AppCompatActivity implements View.OnFocusCha
         arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, arrayList);
         searchList.setAdapter(arrayAdapter);
 
-        //from = getIntent().getStringExtra("from");
+
         etFrom = findViewById(R.id.etFrom);
-        etFrom.setInputType(InputType.TYPE_NULL);
-        etFrom.setOnFocusChangeListener(this);
-        etFrom.setText(from);
+        etFrom.setOnClickListener(this);
+        from = getIntent().getStringExtra("from");
+        if(from != null)
+            etFrom.setText(from);
 
 
-        to = getIntent().getStringExtra("to");
         etTo = findViewById(R.id.etTo);
-        etTo.setInputType(InputType.TYPE_NULL);
-        etTo.setOnFocusChangeListener(this);
-        etTo.setText(to);
+        etTo.setOnClickListener(this);
+        to = getIntent().getStringExtra("to");
+
+        if(to != null)
+            etTo.setText(to);
     }
 
     @Override
@@ -74,11 +76,17 @@ public class SearchActivity extends AppCompatActivity implements View.OnFocusCha
         });
         return super.onCreateOptionsMenu(menu);
     }
+
     @Override
-    public void onFocusChange(View view, boolean b) {
+    public void onClick(View view) {
         Intent i = new Intent(this, LocationsActivity.class);
         i.putExtra("from", etFrom.getText().toString());
         i.putExtra("to",etTo.getText().toString());
+
+        if(etTo == view)
+            i.putExtra("source", "to");
+        else
+            i.putExtra("source", "from");
         startActivity(i);
     }
 }
