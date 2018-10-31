@@ -6,7 +6,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-
+//1. open firebase console
+//2. add the following to gradle
+//implementation 'com.google.firebase:firebase-database:16.0.3'
 public class CustomListActivity extends AppCompatActivity {
 
     ArrayList<Item> items;

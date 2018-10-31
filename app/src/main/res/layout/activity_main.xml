@@ -1,35 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="com.example.hp1.wheatherapplication.MainActivity">
 
-    <TextView
-        android:id="@+id/textCity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="City"
-        android:textStyle="bold"
-        android:textSize="36dp"
-        android:gravity="center"
-        android:layout_marginTop="40dp"
-       />
-    <TextView
-        android:id="@+id/textLastUpdate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="City"
-        android:textStyle="bold"
-        android:textSize="36dp"
-        android:gravity="center"
-        android:layout_marginTop="40dp"
-        />
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center"/>
-</LinearLayout>
+    <fragment
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:name="com.example.hp1.wheatherapplication.HelloGlobeFragment"
+        android:id="@+id/fragment"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

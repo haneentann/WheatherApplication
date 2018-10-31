@@ -32,6 +32,7 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".LogInSignUpActivity" />
         <activity android:name=".CustomListActivity" />
+        <activity android:name=".LocationsActivity"></activity>
     </application>
 
 </manifest>

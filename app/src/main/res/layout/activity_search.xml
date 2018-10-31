@@ -10,5 +10,21 @@
     <ListView
         android:id="@+id/lvList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="422dp" />
+
+    <EditText
+        android:id="@+id/etFrom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="From"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/etTo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="To"
+        android:inputType="textPersonName" />
 </LinearLayout>

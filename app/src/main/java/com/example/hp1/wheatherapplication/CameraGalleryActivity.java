@@ -3,7 +3,9 @@ package com.example.hp1.wheatherapplication;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.Image;
+import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -21,6 +24,7 @@ import java.util.Date;
 public class CameraGalleryActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final int CAMERA_REQUEST = 0;
+    private static final int SELECT_IMAGE = 1;
     ImageView imageView;
     Button btGallery, btTakePhot;
 
@@ -51,7 +55,8 @@ public class CameraGalleryActivity extends AppCompatActivity implements View.OnC
             Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(i, CAMERA_REQUEST);
         }else{
-            //later
+            Intent i = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(i, SELECT_IMAGE);
         }
     }
     //Starting another activity doesn't have to be one-way. You can also start another activity and receive a result back
@@ -62,9 +67,22 @@ public class CameraGalleryActivity extends AppCompatActivity implements View.OnC
         //if the request was from camera and the result was OK meanning the camera worked
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
             //the image captured is saved in the data object
-            Bitmap photo = (Bitmap) data.getExtras().get("data");
-            imageView.setImageBitmap(photo);
+            bitmap = (Bitmap) data.getExtras().get("data");
+            imageView.setImageBitmap(bitmap);
          //   saveImage(photo);
+        }else if(requestCode == SELECT_IMAGE && resultCode == Activity.RESULT_OK) {
+            //URI - unified resource locator is something like URL but can hold different type of paths
+            // examples: file:///something.txt, http://www.example.com/, ftp://example.com
+            // A Uri object is usually used to tell a ContentProvider what we want to access by reference
+            Uri targetUri = data.getData();
+            try {
+                //Decode an input stream into a bitmap.
+                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
+                imageView.setImageBitmap(bitmap);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
         }
     }
 
