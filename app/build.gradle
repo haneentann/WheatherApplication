@@ -45,8 +45,12 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:16.0.1'
     implementation 'com.google.firebase:firebase-storage:16.0.1'
 
+    //firebase step 1
+    implementation 'com.google.firebase:firebase-database:16.0.1'
+    implementation 'com.google.firebase:firebase-crash:16.0.1'
     //
     implementation 'com.mousebirdconsulting.maply:Android:2.5'
 
 
+    implementation 'com.google.firebase:firebase-database:16.0.1'
 }

@@ -1,5 +1,6 @@
 package com.example.hp1.wheatherapplication;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -78,6 +79,8 @@ public class LogInSignUpActivity extends AppCompatActivity implements View.OnCli
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            Intent i = new Intent(LogInSignUpActivity.this, FireActivity.class);
+                            startActivity(i);
                             Toast.makeText(LogInSignUpActivity.this, "Sign In Successful", Toast.LENGTH_SHORT).show();
                             //updateUI(user);
                         } else {
@@ -94,8 +97,8 @@ public class LogInSignUpActivity extends AppCompatActivity implements View.OnCli
     }
     @Override
     public void onClick(View view) {
-        String email = etEmail.getText().toString();
-        String password = etPassword.getText().toString();
+        String email = "haneen@gmail.com";//etEmail.getText().toString();
+        String password = "123456789";//etPassword.getText().toString();
 
         if(email.equals("") || password.equals("")){
             Toast.makeText(this, "Email or Password is emapy", Toast.LENGTH_LONG).show();

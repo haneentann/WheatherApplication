@@ -20,7 +20,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SearchActivity">
+        <activity android:name=".FireBaseListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,9 +30,11 @@
         <activity android:name=".PDFActivity" />
         <activity android:name=".HorScrollViewActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".LogInSignUpActivity" />
+        <activity android:name=".SearchActivity" />
         <activity android:name=".CustomListActivity" />
-        <activity android:name=".LocationsActivity"></activity>
+        <activity android:name=".LocationsActivity" />
+        <activity android:name=".FireActivity" />
+        <activity android:name=".LogInSignUpActivity"></activity>
     </application>
 
 </manifest>

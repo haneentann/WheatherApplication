@@ -1,6 +1,7 @@
 package com.example.hp1.wheatherapplication;
 
 public class Item {
+    
     private int image;
     private String name;
 
