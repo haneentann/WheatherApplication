@@ -15,13 +15,18 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class LogInSignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "FIREBASE";
-    EditText etPassword, etEmail;
+    EditText etPassword, etEmail, etExtra;
     Button btSignUp, btLogin;
     private FirebaseAuth mAuth;
+
+    final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    final DatabaseReference myRef = database.getReference("Users");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +35,7 @@ public class LogInSignUpActivity extends AppCompatActivity implements View.OnCli
 
         etPassword = findViewById(R.id.etPassword);
         etEmail = findViewById(R.id.etEmail);
+        etExtra = findViewById(R.id.etExtra);
 
         btLogin = findViewById(R.id.btLogIn);
         btLogin.setOnClickListener(this);
@@ -56,7 +62,12 @@ public class LogInSignUpActivity extends AppCompatActivity implements View.OnCli
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            String userId = user.getUid();
+                            myRef.child(userId).child("extra").setValue(etExtra.getText().toString());
                             Toast.makeText(LogInSignUpActivity.this, "Sign Up Successful", Toast.LENGTH_SHORT).show();
+                            Intent i = new Intent(LogInSignUpActivity.this, CameraGalleryActivity.class);
+                            startActivity(i);
+
                             //updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -79,14 +90,15 @@ public class LogInSignUpActivity extends AppCompatActivity implements View.OnCli
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Intent i = new Intent(LogInSignUpActivity.this, FireActivity.class);
+                            Intent i = new Intent(LogInSignUpActivity.this, CameraGalleryActivity.class);
+                            i.putExtra("userId", user.getUid());
                             startActivity(i);
                             Toast.makeText(LogInSignUpActivity.this, "Sign In Successful", Toast.LENGTH_SHORT).show();
                             //updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(LogInSignUpActivity.this, "Authentication failed.",
+                            Toast.makeText(LogInSignUpActivity.this, "Authentication failed: "+task.getException(),
                                     Toast.LENGTH_SHORT).show();
                             //updateUI(null);
                         }
@@ -97,8 +109,8 @@ public class LogInSignUpActivity extends AppCompatActivity implements View.OnCli
     }
     @Override
     public void onClick(View view) {
-        String email = "haneen@gmail.com";//etEmail.getText().toString();
-        String password = "123456789";//etPassword.getText().toString();
+        String email = etEmail.getText().toString();
+        String password = etPassword.getText().toString();
 
         if(email.equals("") || password.equals("")){
             Toast.makeText(this, "Email or Password is emapy", Toast.LENGTH_LONG).show();
@@ -106,7 +118,7 @@ public class LogInSignUpActivity extends AppCompatActivity implements View.OnCli
             if (view == btSignUp) {
                 createAccount(email, password);
             } else {
-                signIn(email, password);
+                signIn("haneen1@gmail.com", "123456789");
             }
         }
     }
